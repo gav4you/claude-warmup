@@ -1,6 +1,6 @@
 {
   "name": "warmup",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Frame of reference for setting up a Windows dev machine for Claude Code: what to install (Go, Node/pnpm, Python, Ruby, mobile, databases, cloud), from which sources, and how to organize it all in one folder.",
   "author": {
     "name": "gav4you",

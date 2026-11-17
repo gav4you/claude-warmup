@@ -18,12 +18,16 @@ In Claude Code:
 
 Then just ask, for example: *"set up my machine for Go and web development"* or *"audit my dev tools and organize them"*. The skill triggers on requests like these.
 
+**New to all this?** Read [`skills/warmup/MANUAL.md`](skills/warmup/MANUAL.md), a five-minute guide to what gets installed, why, and the best practices.
+
 ## What's inside
 
 ```
 skills/warmup/
-├─ SKILL.md                 seven phases, source priority, red flags
+├─ SKILL.md                 eight phases, source priority, red flags
+├─ MANUAL.md                plain-language guide: what gets installed and best practices
 ├─ reference/
+│  ├─ terminal-shell.md     Windows Terminal as default, PowerShell 7 LTS (+ current), profiles: do first
 │  ├─ tool-catalog.md       what to install per category, the exact source, and when
 │  ├─ layout.md             C:\DevTools layout; how to migrate from winget/MSI to Scoop safely
 │  ├─ disk-recovery.md      find space in seconds (Everything/MFT); what's safe to delete
@@ -40,14 +44,15 @@ skills/warmup/
 
 1. **Take an inventory before installing anything.**
 2. **Recover disk space first** if C: has less than ~30 GB free.
-3. **Pick tools by what your code uses.** Read the go.mod, package.json and pyproject files, including their version pins.
-4. **Source priority:**
+3. **Fix the foundation:** make Windows Terminal the default terminal (paste breaks in the old console) and install PowerShell 7 LTS.
+4. **Pick tools by what your code uses.** Read the go.mod, package.json and pyproject files, including their version pins.
+5. **Source priority:**
    - Scoop, rooted at `C:\DevTools\scoop`
    - language-native tools: `go install`, `npm -g`, `uv tool`, `gem`
    - an official release zip with its SHA-256 checked
    - winget/MSI only for services and deep Windows integration
-5. **Stage changes while work is running.** Swap toolchains only when the user confirms things are idle.
-6. **Verify from a fresh PATH.** Each `where.exe <tool>` should resolve exactly once, then run smoke tests.
+6. **Stage changes while work is running.** Swap toolchains only when the user confirms things are idle.
+7. **Verify from a fresh PATH.** Each `where.exe <tool>` should resolve exactly once, then run smoke tests.
 
 Windows-focused. On macOS or Linux the same phases apply with Homebrew or mise.
 

@@ -23,7 +23,7 @@ C:\DevTools\
   3. Uninstall the old copy (`winget uninstall --id <id> -e --purge`, or the product's own uninstaller).
   4. Remove its PATH entries, backing up PATH to a file first.
   5. Fix anything that referenced the old path (git credential helper, env vars, shortcuts).
-- **Keep system-installed:** services (Docker, PostgreSQL, cloudflared), Git for Windows, system Node (MCP configs hardcode it), VS Code, Android Studio + SDK + NDK, VS Build Tools, the `py` launcher.
+- **Keep system-installed:** Windows Terminal and PowerShell 7 (see `terminal-shell.md`), services (Docker, PostgreSQL, cloudflared), Git for Windows, system Node (MCP configs hardcode it), VS Code, Android Studio + SDK + NDK, VS Build Tools, the `py` launcher.
 - **Before moving anything,** search for references: `~\.claude.json`, `~\.claude\settings*.json`, `~\.codex\config.toml`, `~\.gemini\settings.json`, VS Code settings, scheduled task actions, services (`Win32_Service.PathName`), user/machine env vars, Start Menu/Desktop `.lnk` targets, and `pyvenv.cfg` files (via `es wfn:pyvenv.cfg`).
 - **After every change,** run `scripts/build-catalog.ps1`, `scoop export > _scripts\scoopfile.json`, and a dead-PATH-entry sweep.
 - **Reports and handoffs** go wherever the user's CLAUDE.md says; otherwise ask. Never put them in the tool tree.

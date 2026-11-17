@@ -11,6 +11,15 @@
 | `scoop` not found right after install | The current process PATH is stale | `$env:Path = [Environment]::GetEnvironmentVariable('Path','Machine') + ';' + [Environment]::GetEnvironmentVariable('Path','User')` |
 | Bulk uninstall/install collides | Windows Installer handles one MSI at a time; other sessions may be running uninstallers | Check `msiexec` processes and MsiInstaller events 1040/1042; wait |
 
+## Terminal & shell
+| Symptom | Cause | Fix |
+|---|---|---|
+| Paste fails or garbles in Claude Code's window | Running in the old console host (conhost) | Make Windows Terminal the default terminal (`terminal-shell.md` §1); windows already open stay on conhost |
+| PowerShell LTS MSI upgrade wants a reboot or breaks automation | Scheduled tasks or services still running pwsh from `C:\Program Files\PowerShell\7` | Stop those tasks and kill pwsh first, then `msiexec`. Never remove the copy tasks hardcode |
+| Supervisor loops on EADDRINUSE after killing pwsh | Killing the supervising pwsh leaves its child (e.g. node) holding the port | Stop the child processes too, then restart the tasks |
+| PowerShell profile "lost" | `$PROFILE` follows the Documents folder, which moved between OneDrive and local | Re-check `$PROFILE` and keep one profile file |
+| `pwsh` resolves to the Store copy, not the LTS | `%LOCALAPPDATA%\Microsoft\WindowsApps` comes earlier on PATH | Fine for interactive use. Tasks and scripts use the full LTS path |
+
 ## Toolchains
 | Symptom | Cause | Fix |
 |---|---|---|

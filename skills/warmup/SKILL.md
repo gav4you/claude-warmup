@@ -9,7 +9,7 @@ description: Use when someone starts using Claude Code on a new or unfamiliar Wi
 
 Set a machine up so every dev tool lives in **one folder (`C:\DevTools`)**, comes from a **verifiable source**, and is **cataloged by category**. Never break work that is already running.
 
-**Core principle:** inventory → health gate → plan from what the code uses → install by source priority → organize → verify from a fresh PATH. Never install blind, and never declare done without a fresh-shell check.
+**Core principle:** inventory → health gate → terminal and shell foundation → plan from what the code uses → install by source priority → organize → verify from a fresh PATH. Never install blind, and never declare done without a fresh-shell check.
 
 Windows-specific. On macOS/Linux the phases still apply; swap Scoop for Homebrew or mise. Bundled files live next to this SKILL.md, in `scripts/` and `reference/` (normally `~\.claude\skills\warmup\`). The scripts run in Windows PowerShell 5.1 (`powershell -File …`) or pwsh 7.
 
@@ -23,10 +23,15 @@ Windows-specific. On macOS/Linux the phases still apply; swap Scoop for Homebrew
 3. **Health gate.**
    - Disk: under ~30 GB free means recover space **before** installing; see `reference/disk-recovery.md`. The ~5 MB Everything search tool is the one allowed install, because it's how you find the space.
    - Running work: agent loops, `go`/`node` builds or containers mean you **stage side-by-side and swap only when idle**. **Idle** means the user confirms other sessions are stopped (loops have gaps between runs, so a process snapshot alone can lie) *and* `Get-Process go,gopls,node,claude,codex,msiexec` shows nothing outside your own shell's process tree (`$PID` and its children). Never decide it alone. Staging installs are fine while busy. Uninstalling MSIs, `go env -w`, moving GOPATH and rebuilding venvs wait.
-4. **Plan.** Pick tools from `reference/tool-catalog.md` by what the manifests import and pin, plus the baseline set. Show the plan. Get a yes for anything system-level, destructive, or that replaces a toolchain.
-5. **Install by source priority** (table below). Verify every manual download's checksum against the publisher's list. Install Go tools **after** any Go swap, since GOTOOLCHAIN=auto otherwise pulls extra toolchains.
-6. **Organize.** Use the `C:\DevTools` layout in `reference/layout.md`. Move portable SDKs with a junction left at the old path. Run `scripts\build-catalog.ps1` to generate category shortcut folders plus `README.md` and `catalog.json`.
-7. **Verify.** Rebuild PATH from the registry. Check that `where.exe <tool>` gives exactly one intended location, then run smoke tests (go build + lint, `pnpm install --frozen-lockfile`, `uv run pytest`, `flutter doctor`, `gh auth status`, DB query). Confirm no dead PATH entries. Write a handoff in the user's docs location (ask if unknown) and save memory notes on what's staged or pending.
+4. **Foundation: terminal and shell first.**
+   - Upgrade **Windows Terminal** and make it the **default terminal**; in the old conhost, paste breaks and Claude Code sessions suffer.
+   - Install **PowerShell 7 LTS** (MSI, stable path), plus the current release if wanted.
+   - Make pwsh 7 Terminal's default profile, set the execution policy, and keep `$PROFILE` lean.
+   - Follow `reference/terminal-shell.md` exactly. It covers the DoSvc/MSIX workaround and not breaking scheduled tasks that use pwsh.
+5. **Plan.** Pick tools from `reference/tool-catalog.md` by what the manifests import and pin, plus the baseline set. Show the plan. Get a yes for anything system-level, destructive, or that replaces a toolchain. Offer the user `MANUAL.md` (next to this file), a plain-language guide to what gets installed and why.
+6. **Install by source priority** (table below). Verify every manual download's checksum against the publisher's list. Install Go tools **after** any Go swap, since GOTOOLCHAIN=auto otherwise pulls extra toolchains.
+7. **Organize.** Use the `C:\DevTools` layout in `reference/layout.md`. Move portable SDKs with a junction left at the old path. Run `scripts\build-catalog.ps1` to generate category shortcut folders plus `README.md` and `catalog.json`.
+8. **Verify.** Rebuild PATH from the registry. Check that `where.exe <tool>` gives exactly one intended location, then run smoke tests (go build + lint, `pnpm install --frozen-lockfile`, `uv run pytest`, `flutter doctor`, `gh auth status`, DB query). Confirm no dead PATH entries. Write a handoff in the user's docs location (ask if unknown) and save memory notes on what's staged or pending.
 
 ## Source priority
 
@@ -38,6 +43,7 @@ Windows-specific. On macOS/Linux the phases still apply; swap Scoop for Homebrew
 | Python CLIs | `uv tool install` |
 | Ruby gems | `gem install` on Scoop Ruby (+ msys2) |
 | Not in Scoop | Official release zip + SHA-256 check → `C:\DevTools\sdk\` or `portable\` |
+| Terminal and shell | Windows Terminal (MSIX via winget, or the GitHub `.msixbundle` + `Add-AppxPackage`); PowerShell 7 LTS (GitHub MSI) + optional current (MSIX). Not Scoop: tasks and Terminal profiles need a stable path |
 | Windows services, drivers, deep integration | winget/MSI: Docker Desktop, PostgreSQL server, Git for Windows, system Node, VS Code, Android Studio, VS Build Tools |
 
 ## Red flags: stop and re-check

@@ -2,6 +2,14 @@
 
 **Baseline** means install it for every web/app developer. **If** means install it only when the condition holds; scan the project manifests first. The Scoop bucket is `main` unless noted.
 
+## 00 Terminal & shell (baseline, first)
+| Tool | Source | When |
+|---|---|---|
+| Windows Terminal (upgrade + set as default terminal) | winget `Microsoft.WindowsTerminal` (MSIX), or the GitHub msixbundle | always |
+| PowerShell 7 LTS | GitHub `PowerShell-<ver>-win-x64.msi` (checksum-verified) | always |
+| PowerShell 7 current | winget `Microsoft.PowerShell` (MSIX) | optional, alongside the LTS |
+Details: `terminal-shell.md`.
+
 ## 01 Go
 | Tool | Source | When |
 |---|---|---|
@@ -55,7 +63,7 @@ Docker Desktop (winget; system). `scoop install gh extras/gcloud gitlab-runner`.
 `scoop install protobuf buf xh k6 mkcert extras/bruno`; `uv tool install httpie`; grpcurl via go install.
 
 ## 07 CLI utilities (baseline)
-`scoop install pwsh jq yq ripgrep fd fzf bat delta lazygit 7zip make just task gdu graphviz extras/everything extras/everything-cli`. (`pwsh` = PowerShell 7; fresh machines only have 5.1.) Git for Windows stays system-installed (Claude Code's bash depends on it).
+`scoop install jq yq ripgrep fd fzf bat delta lazygit 7zip make just task gdu graphviz extras/everything extras/everything-cli`. Windows Terminal and PowerShell 7 are **not** from Scoop; see `terminal-shell.md` (do them first). Git for Windows stays system-installed (Claude Code's bash depends on it).
 
 ## 08 Security
 `go install` gosec, osv-scanner, go-licenses, cyclonedx-gomod (govulncheck above); `scoop install trivy hadolint`.
