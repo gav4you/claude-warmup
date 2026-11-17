@@ -1,0 +1,20 @@
+{
+  "name": "claude-warmup",
+  "owner": {
+    "name": "gav4you",
+    "url": "https://github.com/gav4you"
+  },
+  "metadata": {
+    "description": "Dev-machine warmup skill for Claude Code"
+  },
+  "plugins": [
+    {
+      "name": "warmup",
+      "source": "./",
+      "description": "Set up, audit and organize a Windows dev machine for Claude Code: what to install, from which sources, and where it goes.",
+      "version": "1.0.0",
+      "license": "MIT",
+      "keywords": ["setup", "onboarding", "windows", "dev-environment"]
+    }
+  ]
+}

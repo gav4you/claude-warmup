@@ -1,0 +1,13 @@
+{
+  "name": "warmup",
+  "version": "1.0.0",
+  "description": "Frame of reference for setting up a Windows dev machine for Claude Code: what to install (Go, Node/pnpm, Python, Ruby, mobile, databases, cloud), from which sources, and how to organize it all in one folder.",
+  "author": {
+    "name": "gav4you",
+    "url": "https://github.com/gav4you"
+  },
+  "homepage": "https://github.com/gav4you/claude-warmup",
+  "repository": "https://github.com/gav4you/claude-warmup",
+  "license": "MIT",
+  "keywords": ["setup", "onboarding", "windows", "dev-environment", "scoop", "golang", "toolchain"]
+}
